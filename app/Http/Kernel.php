@@ -19,6 +19,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        //TODO remover essa biblioteca antes de ir pra produção!
+        \Barryvdh\Cors\HandleCors::class,
     ];
 
     /**
