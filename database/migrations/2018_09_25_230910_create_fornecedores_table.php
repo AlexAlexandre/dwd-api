@@ -17,6 +17,7 @@ class CreateFornecedoresTable extends Migration
             $table->increments('id_fornecedores')->unsigned();
             $table->integer('id_endereco')->unsigned(); // FK
             $table->string('tx_nome_fornecedor', 100);
+            $table->string('nr_cpf', 11);
             $table->string('tx_email_comercial', 45);
             $table->string('nr_telefone_direto', 15);
             $table->string('nr_telefone_celular', 15);

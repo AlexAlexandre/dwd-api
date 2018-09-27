@@ -15,7 +15,7 @@ class CreateCidadeTable extends Migration
     {
         Schema::create('tb_cidade', function (Blueprint $table) {
             $table->increments('id_cidade')->unsigned();
-            $table->string('tx_nome_municipio',255);
+            $table->string('tx_nome_cidade',255);
             $table->char('sg_uf',2); // FK
             $table->timestamps();
         });
