@@ -18,7 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('uf', 'UfController', ['only' => ['index', 'show']]);
-Route::get('cidade/uf/{uf}', 'UfController@getCidadeUf');
-Route::resource('cidade', 'CidadeController', ['only' => ['index', 'show']]);
-
 Route::resource('fornecedor', 'FornecedoresController', ['except' => ['create', 'edit']]);

@@ -14,8 +14,8 @@ class AddForeignKeysToTbEnderecoTable extends Migration
     public function up()
     {
         Schema::table('tb_endereco', function (Blueprint $table) {
-            $table->foreign('id_cidade')
-                ->references('id_cidade')->on('tb_cidade');
+            $table->foreign('sg_uf')
+                ->references('sg_uf')->on('tb_uf');
         });
     }
 
@@ -27,7 +27,7 @@ class AddForeignKeysToTbEnderecoTable extends Migration
     public function down()
     {
         Schema::table('tb_endereco', function (Blueprint $table) {
-            $table->dropForeign('id_cidade');
+            $table->dropForeign('sg_uf');
         });
     }
 }

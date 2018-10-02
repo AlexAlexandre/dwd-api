@@ -13,8 +13,8 @@ class Uf extends Model
 
     protected $fillable = ['tx_nome_uf'];
 
-    public function cidade(): HasMany
+    public function endereco(): HasMany
     {
-        return $this->hasMany(Cidade::class, 'sg_uf', 'sg_uf');
+        return $this->hasMany(Endereco::class, 'sg_uf', 'sg_uf');
     }
 }

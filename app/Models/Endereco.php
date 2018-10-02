@@ -12,7 +12,8 @@ class Endereco extends Model
     protected $primaryKey = 'id_endereco';
 
     protected $fillable = [
-        'id_cidade',
+        'sg_uf',
+        'tx_localidade',
         'tx_cep',
         'tx_logradouro',
         'nr_numero',
@@ -21,9 +22,9 @@ class Endereco extends Model
         'tx_tipodelogradouro'
     ];
 
-    public function cidade(): BelongsTo
+    public function uf(): BelongsTo
     {
-        return $this->belongsTo(Cidade::class, 'id_cidade', 'id_cidade');
+        return $this->belongsTo(Uf::class, 'sg_uf', 'sg_uf');
     }
 
     public function fornecedores(): HasMany

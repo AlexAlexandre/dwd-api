@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cidade;
 use App\Models\Endereco;
 use App\Models\Fornecedores;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FornecedoresController extends Controller
@@ -16,7 +17,7 @@ class FornecedoresController extends Controller
      */
     public function index()
     {
-        //
+        return Fornecedores::all();
     }
 
 
@@ -29,8 +30,21 @@ class FornecedoresController extends Controller
     public function store(Request $request)
     {
         $endereco = Endereco::create($request->input('enderecoCompleto'));
-//        $fornecedor = Fornecedores::create([])
-        return $endereco;
+
+        $fornecedor = new Fornecedores();
+        $fornecedor->id_endereco = $endereco->id_endereco;
+        $fornecedor->tx_nome_fornecedor = $request->input('fornecedor.tx_nome_fornecedor');
+        $fornecedor->nr_cpf = $request->input('fornecedor.nr_cpf');
+        $fornecedor->tx_email_comercial = $request->input('fornecedor.tx_email_comercial');
+        $fornecedor->nr_telefone_direto = $request->input('fornecedor.nr_telefone_direto');
+        $fornecedor->nr_telefone_celular = $request->input('fornecedor.nr_telefone_celular');
+        $fornecedor->tx_cargo = $request->input('fornecedor.tx_cargo');
+        $fornecedor->tx_descricao_atividades = $request->input('fornecedor.tx_descricao_atividades');
+        $fornecedor->created_at = Carbon::now();
+
+        $fornecedor->save();
+
+        return 'true';
     }
 
     /**
@@ -60,11 +74,12 @@ class FornecedoresController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Fornecedores  $fornecedores
+     * @param  \App\Models\Fornecedores  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fornecedores $fornecedores)
+    public function destroy(Request $request, Fornecedores $id)
     {
-        //
+        return $request;
+//        return Fornecedores::destroy($id);
     }
 }
