@@ -50,12 +50,11 @@ class FornecedoresController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Fornecedores  $fornecedores
      * @return \Illuminate\Http\Response
      */
-    public function show(Fornecedores $fornecedores)
+    public function show($id)
     {
-        //
+        return Fornecedores::with('endereco')->find($id);
     }
 
 
