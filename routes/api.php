@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('uf', 'UfController', ['only' => ['index', 'show']]);
 Route::resource('fornecedor', 'FornecedorController', ['except' => ['create', 'edit']]);
+Route::resource('tabela-preco', 'TabelaPrecoController', ['except' => ['create', 'edit']]);
+Route::get('tipo-servico', 'TabelaPrecoController@listarTipoServico');

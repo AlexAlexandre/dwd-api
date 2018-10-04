@@ -16,6 +16,7 @@ class TabelaPreco extends Model
         'id_fornecedores',
         'tx_nome_tabela_preco',
         'tx_descricao_servico',
+        'nr_valor',
         'nr_percentagem_desconto'
     ];
 
