@@ -15,7 +15,8 @@ class AddForeignKeysToTbFornecedoresTable extends Migration
     {
         Schema::table('tb_fornecedores', function (Blueprint $table) {
             $table->foreign('id_endereco')
-                ->references('id_endereco')->on('tb_endereco');
+                ->references('id_endereco')->on('tb_endereco')
+                ->onDelete('cascade');
         });
     }
 
