@@ -21,4 +21,6 @@ Route::resource('uf', 'UfController', ['only' => ['index', 'show']]);
 Route::resource('fornecedor', 'FornecedorController', ['except' => ['create', 'edit']]);
 Route::resource('tabela-preco', 'TabelaPrecoController', ['except' => ['create', 'edit']]);
 Route::resource('clientes', 'ClientesController', ['except' => ['create', 'edit']]);
+Route::resource('espacos', 'EspacosController', ['except' => ['create', 'edit']]);
+Route::get('listar-tabela-preco', 'EspacosController@listarTabelaPreco');
 Route::get('tipo-servico', 'TabelaPrecoController@listarTipoServico');
