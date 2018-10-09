@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TabelaPreco extends Model
 {
@@ -28,5 +29,10 @@ class TabelaPreco extends Model
     public function fornecedores(): BelongsTo
     {
         return $this->belongsTo(Fornecedores::class, 'id_fornecedores', 'id_fornecedores');
+    }
+
+    public function espacosTabela(): HasMany
+    {
+        return $this->hasMany(EspacosTabelaPreco::class, 'id_tabela_preco', 'id_tabela_preco');
     }
 }

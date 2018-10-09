@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Espacos extends Model
 {
@@ -36,4 +37,14 @@ class Espacos extends Model
         'tx_email_comercial_resp',
         'tx_desc_ativ_resp'
     ];
+
+    public function espacosTabela(): HasMany
+    {
+        return $this->hasMany(EspacosTabelaPreco::class, 'id_espacos', 'id_espacos');
+    }
+
+    public function espacosSalas(): HasMany
+    {
+        return $this->hasMany(EspacosSalas::class, 'id_espacos', 'id_espacos');
+    }
 }

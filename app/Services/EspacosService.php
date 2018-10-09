@@ -4,9 +4,12 @@
  * Date: 03/10/18
  * Time: 19:55
  */
+
 namespace App\Services;
 
 use App\Models\Espacos;
+use App\Models\EspacosSalas;
+use App\Models\Salas;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,13 +25,13 @@ class EspacosService
      */
     public function all()
     {
-        $espacos = Espacos::all();
+        $espacos = Espacos::with('espacosSalas.salas')->get();
 
         return $this->sendResponse(
-          $espacos,
-          __('responses.success.list'),
-          Response::HTTP_OK,
-          false
+            $espacos,
+            __('responses.success.list'),
+            Response::HTTP_OK,
+            false
         );
     }
 
@@ -47,6 +50,14 @@ class EspacosService
 
             $espaco = Espacos::create($request->input('espaco'));
 
+            if ($request->input('espaco.sala')) {
+                $sala = Salas::create($request->input('espaco.sala'));
+                EspacosSalas::create([
+                    'id_espacos' => $espaco->id_espacos,
+                    'id_salas' => $sala->id_salas
+                ]);
+            }
+
             DB::commit();
 
             return $this->sendResponse(
@@ -63,8 +74,17 @@ class EspacosService
     //TODO - colocar o rollback
     public function update(Request $request, $id)
     {
+
         $espaco = Espacos::find($id)
             ->update($request->input('espaco'));
+
+        if ($request->input('espaco.sala')) {
+            $sala = Salas::create($request->input('espaco.sala'));
+            EspacosSalas::create([
+                'id_espacos' => $id,
+                'id_salas' => $sala->id_salas
+            ]);
+        }
 
         return $this->sendResponse(
             $espaco,

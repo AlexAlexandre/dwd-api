@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Espacos;
+use App\Models\EspacosSalas;
+use App\Models\Salas;
 use App\Models\TabelaPreco;
 use App\Services\EspacosService;
 use Illuminate\Http\Request;
@@ -84,5 +86,15 @@ class EspacosController extends Controller
     public function listarTabelaPreco()
     {
         return TabelaPreco::all();
+    }
+
+    public function listarSalas($id)
+    {
+        return EspacosSalas::with('salas')->where('id_espacos', $id)->get();
+    }
+
+    public function listarSala($id)
+    {
+        return Salas::find($id);
     }
 }

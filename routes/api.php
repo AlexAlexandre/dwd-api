@@ -24,3 +24,7 @@ Route::resource('clientes', 'ClientesController', ['except' => ['create', 'edit'
 Route::resource('espacos', 'EspacosController', ['except' => ['create', 'edit']]);
 Route::get('listar-tabela-preco', 'EspacosController@listarTabelaPreco');
 Route::get('tipo-servico', 'TabelaPrecoController@listarTipoServico');
+
+//TODO refatorar isso
+Route::get('espacos/salas/{id}', 'EspacosController@listarSalas');
+Route::get('salas/{id}', 'EspacosController@listarSala');
