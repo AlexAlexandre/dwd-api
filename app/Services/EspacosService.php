@@ -9,6 +9,7 @@ namespace App\Services;
 
 use App\Models\Espacos;
 use App\Models\EspacosSalas;
+use App\Models\EspacosTabelaPreco;
 use App\Models\Salas;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -84,6 +85,15 @@ class EspacosService
                 'id_espacos' => $id,
                 'id_salas' => $sala->id_salas
             ]);
+        }
+
+        if($request->input('tabelaPreco')){
+            foreach ($request->input('tabelaPreco') as $tb) {
+                EspacosTabelaPreco::create([
+                    'id_tabela_preco' => $tb['id_tabela_preco'],
+                    'id_espacos' => $id
+                ]);
+            }
         }
 
         return $this->sendResponse(

@@ -28,3 +28,4 @@ Route::get('tipo-servico', 'TabelaPrecoController@listarTipoServico');
 //TODO refatorar isso
 Route::get('espacos/salas/{id}', 'EspacosController@listarSalas');
 Route::get('salas/{id}', 'EspacosController@listarSala');
+Route::delete('espacos/tabela-preco/{tb}/{espaco}', 'EspacosController@deletarEspacoTabelaPreco');

@@ -56,7 +56,7 @@ class EspacosController extends Controller
      */
     public function show($id)
     {
-        return Espacos::find($id);
+        return Espacos::with('espacosTabela.tabelaPreco')->find($id);
     }
 
 
