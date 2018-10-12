@@ -97,4 +97,14 @@ class EspacosController extends Controller
     {
         return Salas::find($id);
     }
+
+    public function destroyEspacoSala($idSala, $idEspaco)
+    {
+        return $this->espacosService->destroyEspacoSala($idSala, $idEspaco);
+    }
+
+    public function destroyEspacoTabela($idTb, $idEspaco)
+    {
+        return $this->espacosService->destroyEspacoTabela($idTb, $idEspaco);
+    }
 }

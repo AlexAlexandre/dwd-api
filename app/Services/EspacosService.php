@@ -75,16 +75,24 @@ class EspacosService
     //TODO - colocar o rollback
     public function update(Request $request, $id)
     {
-
         $espaco = Espacos::find($id)
             ->update($request->input('espaco'));
 
-        if ($request->input('espaco.sala')) {
-            $sala = Salas::create($request->input('espaco.sala'));
-            EspacosSalas::create([
-                'id_espacos' => $id,
-                'id_salas' => $sala->id_salas
-            ]);
+        if ($request->input('espaco.sala.tx_nome_salas') != null) {
+
+            if($request->input('espaco.sala.id_salas')) {
+
+                Salas::find($request->input('espaco.sala.id_salas'))
+                    ->update($request->input('espaco.sala'));
+
+            } else {
+
+                $sala = Salas::create($request->input('espaco.sala'));
+                EspacosSalas::create([
+                    'id_espacos' => $id,
+                    'id_salas' => $sala->id_salas
+                ]);
+            }
         }
 
         if($request->input('tabelaPreco')){
@@ -108,5 +116,19 @@ class EspacosService
         $espaco = Espacos::destroy($id);
 
         return $this->sendResponse($espaco, __('responses.success.destroy'));
+    }
+
+    public function destroyEspacoSala($idSala, $idEspaco)
+    {
+        EspacosSalas::destroy(['id_salas' => $idSala, 'id_espacos' => $idEspaco]);
+        $sala = Salas::destroy($idSala);
+
+        return $this->sendResponse($sala, __('responses.success.destroy'));
+    }
+
+    public function destroyEspacoTabela($idTb, $idEspaco)
+    {
+        $espacoTb = EspacosTabelaPreco::where(['id_tabela_preco' => $idTb, 'id_espacos' => $idEspaco])->delete();
+        return $this->sendResponse($espacoTb, __('responses.success.destroy'));
     }
 }
