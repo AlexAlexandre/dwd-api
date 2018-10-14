@@ -10,15 +10,11 @@ class TabelaPreco extends Model
 {
     protected $table = 'tb_tabela_preco';
     protected $primaryKey = 'id_tabela_preco';
-    public $incrementing = false;
 
     protected $fillable = [
         'id_tipo_servico',
         'id_fornecedores',
         'tx_nome_tabela_preco',
-        'tx_descricao_servico',
-        'nr_valor',
-        'nr_percentagem_desconto'
     ];
 
     public function tipoServico(): BelongsTo
@@ -34,5 +30,10 @@ class TabelaPreco extends Model
     public function espacosTabela(): HasMany
     {
         return $this->hasMany(EspacosTabelaPreco::class, 'id_tabela_preco', 'id_tabela_preco');
+    }
+
+    public function produtos(): HasMany
+    {
+        return $this->hasMany(Produtos::class, 'id_tabela_preco', 'id_tabela_preco');
     }
 }

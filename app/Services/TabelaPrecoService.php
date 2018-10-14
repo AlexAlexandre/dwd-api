@@ -4,10 +4,12 @@
  * Date: 03/10/18
  * Time: 22:18
  */
+
 namespace App\Services;
 
 
 use App\Models\Fornecedores;
+use App\Models\Produtos;
 use App\Models\TabelaPreco;
 use App\Models\TipoServico;
 use App\Traits\ResponseTrait;
@@ -21,7 +23,7 @@ class TabelaPrecoService
 
     public function all()
     {
-        $tabelaPreco = Fornecedores::with('tabelaPreco.tipoServico')->get();
+        $tabelaPreco = Fornecedores::with('tabelaPreco.tipoServico','tabelaPreco.produtos')->get();
 
         return $this->sendResponse(
             $tabelaPreco,
@@ -45,7 +47,7 @@ class TabelaPrecoService
 
     public function show($id)
     {
-        $tabelaPreco = TabelaPreco::find($id);
+        $tabelaPreco = TabelaPreco::with('produtos')->find($id);
 
         return $this->sendResponse(
             $tabelaPreco,
@@ -63,6 +65,15 @@ class TabelaPrecoService
 
             $tabelaPreco = TabelaPreco::create($request->input('tabelaPreco'));
 
+            foreach ($request->input('prod') as $value) {
+                Produtos::create([
+                    'id_tabela_preco' => $tabelaPreco->id_tabela_preco,
+                    'tx_descricao_servico' => $value['tx_descricao_servico'],
+                    'nr_valor' => $value['nr_valor'],
+                    'nr_percentagem_desconto' => $value['nr_percentagem_desconto'],
+                ]);
+            }
+
             DB::commit();
 
             return $this->sendResponse(
@@ -74,5 +85,18 @@ class TabelaPrecoService
             DB::rollBack();
             return $this->sendResponse($exception);
         }
+    }
+
+    public function destroy($id)
+    {
+        Produtos::where('id_tabela_preco', $id)->delete();
+        $tb = TabelaPreco::destroy($id);
+        return $this->sendResponse($tb, __('responses.success.destroy'));
+    }
+
+    public function destroyProduto($id)
+    {
+        $produto = Produtos::destroy($id);
+        return $this->sendResponse($produto, __('responses.success.destroy'));
     }
 }

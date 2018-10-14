@@ -18,9 +18,6 @@ class CreateTabelaPrecoTable extends Migration
             $table->integer('id_tipo_servico')->unsigned();
             $table->integer('id_fornecedores')->unsigned();
             $table->string('tx_nome_tabela_preco', 100);
-            $table->text('tx_descricao_servico');
-            $table->integer('nr_valor');
-            $table->integer('nr_percentagem_desconto');
             $table->timestamps();
         });
     }

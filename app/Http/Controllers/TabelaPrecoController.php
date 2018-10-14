@@ -41,6 +41,7 @@ class TabelaPrecoController extends Controller
 
     public function store(Request $request)
     {
+//        return $request->all();
         return $this->tabelaPrecoService->create($request);
     }
 
@@ -56,6 +57,11 @@ class TabelaPrecoController extends Controller
 
     public function destroy($id)
     {
-        //
+        return $this->tabelaPrecoService->destroy($id);
+    }
+
+    public function destroyProduto($id)
+    {
+        return $this->tabelaPrecoService->destroyProduto($id);
     }
 }
