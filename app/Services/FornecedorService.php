@@ -8,6 +8,7 @@ namespace App\Services;
 
 use App\Models\Endereco;
 use App\Models\Fornecedores;
+use App\Models\TabelaPreco;
 use App\Traits\ResponseTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -93,8 +94,13 @@ class FornecedorService
 
     public function destroy($id)
     {
-        $fornecedor = Fornecedores::destroy($id);
+        $tb = TabelaPreco::where('id_fornecedores', $id)->get();
 
-        return $this->sendResponse($fornecedor, __('responses.success.destroy'));
+        if ($tb->isNotEmpty()) {
+            return $this->sendResponse("tb", "Existe uma tabela de preço ligada a este fornecedor");
+        } else {
+            $fornecedor = Fornecedores::destroy($id);
+            return $this->sendResponse($fornecedor, __('responses.success.destroy'));
+        }
     }
 }
