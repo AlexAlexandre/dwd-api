@@ -16,8 +16,8 @@ class CreateSalasTable extends Migration
         Schema::create('tb_salas', function (Blueprint $table) {
             $table->increments('id_salas');
             $table->string('tx_nome_salas',45);
-            $table->integer('nr_metragem_salas');
-            $table->integer('nr_altura_pe_direito_salas');
+            $table->decimal('nr_metragem_salas', 8,2);
+            $table->decimal('nr_altura_pe_direito_salas', 8,2);
             $table->timestamps();
         });
     }
