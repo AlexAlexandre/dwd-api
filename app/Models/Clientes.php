@@ -16,7 +16,10 @@ class Clientes extends Model
         'nr_inscricao_municipal',
         'tx_nome_fantasia',
         'tx_nome_contato',
+        'tx_nome_contato_sec',
         'tx_email_comercial',
-        'nr_telefone'
+        'tx_email_comercial_sec',
+        'nr_telefone',
+        'nr_telefone_sec'
     ];
 }

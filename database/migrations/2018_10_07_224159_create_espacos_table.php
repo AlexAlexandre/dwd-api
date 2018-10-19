@@ -29,6 +29,7 @@ class CreateEspacosTable extends Migration
 
             // Abas dados do Espaço
             $table->string('status_espaco', 45)->nullable();
+            $table->string('tx_nome_espaco', 45)->nullable();
             $table->string('tx_nome_condominio', 45)->nullable();
             $table->integer('qtd_vagas_condominio')->nullable();
             $table->text('tx_regras_condominio')->nullable();

@@ -14,11 +14,15 @@ class Fornecedores extends Model
     protected $fillable = [
         'id_endereco',
         'tx_nome_fornecedor',
+        'tx_razao_social_fornecedor',
+        'tx_nome_fantasia_fornecedor',
+        'nr_cnpj_fornecedor',
+        'nr_inscricao_estadual',
+        'tx_nome_contato_fornecedor',
         'tx_email_comercial',
         'nr_telefone_direto',
         'nr_telefone_celular',
         'tx_cargo',
-        'tx_descricao_atividades'
     ];
 
     public function endereco(): BelongsTo

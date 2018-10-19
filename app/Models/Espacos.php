@@ -22,6 +22,7 @@ class Espacos extends Model
         'tx_email_comercial',
         'nr_telefone',
         'status_espaco',
+        'tx_nome_espaco',
         'tx_nome_condominio',
         'qtd_vagas_condominio',
         'tx_regras_condominio',

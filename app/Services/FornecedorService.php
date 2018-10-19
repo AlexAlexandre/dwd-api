@@ -53,12 +53,16 @@ class FornecedorService
             $fornecedor = new Fornecedores();
             $fornecedor->id_endereco = $endereco->id_endereco;
             $fornecedor->tx_nome_fornecedor = $request->input('fornecedor.tx_nome_fornecedor');
-            $fornecedor->nr_cpf = $request->input('fornecedor.nr_cpf');
+            $fornecedor->tx_razao_social_fornecedor = $request->input('fornecedor.tx_razao_social_fornecedor');
+            $fornecedor->tx_nome_fantasia_fornecedor = $request->input('fornecedor.tx_nome_fantasia_fornecedor');
+            $fornecedor->nr_cnpj_fornecedor = $request->input('fornecedor.nr_cnpj_fornecedor');
+            $fornecedor->nr_inscricao_estadual = $request->input('fornecedor.nr_inscricao_estadual');
+            $fornecedor->tx_nome_contato_fornecedor = $request->input('fornecedor.tx_nome_contato_fornecedor');
             $fornecedor->tx_email_comercial = $request->input('fornecedor.tx_email_comercial');
             $fornecedor->nr_telefone_direto = $request->input('fornecedor.nr_telefone_direto');
             $fornecedor->nr_telefone_celular = $request->input('fornecedor.nr_telefone_celular');
             $fornecedor->tx_cargo = $request->input('fornecedor.tx_cargo');
-            $fornecedor->tx_descricao_atividades = $request->input('fornecedor.tx_descricao_atividades');
+
             $fornecedor->created_at = Carbon::now();
 
             $fornecedor->save();

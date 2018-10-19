@@ -21,8 +21,11 @@ class CreateClientesTable extends Migration
             $table->string('nr_inscricao_municipal', 45);
             $table->string('tx_nome_fantasia', 45);
             $table->string('tx_nome_contato', 45);
+            $table->string('tx_nome_contato_sec', 45)->nullable();
             $table->string('tx_email_comercial', 45);
+            $table->string('tx_email_comercial_sec', 45)->nullable();
             $table->string('nr_telefone', 15);
+            $table->string('nr_telefone_sec', 15)->nullable();
             $table->timestamps();
         });
     }
