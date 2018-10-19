@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Espacos extends Model
@@ -11,6 +12,7 @@ class Espacos extends Model
     protected $primaryKey = 'id_espacos';
 
     protected $fillable = [
+        'id_endereco',
         'tx_razao_social',
         'nr_cnpj_cliente',
         'nr_inscricao_estadual',
@@ -29,7 +31,6 @@ class Espacos extends Model
         'tx_nome_administradora',
         'tx_contato_administradora',
         'nr_unidade',
-        'tx_endereco',
         'tx_nome_completo',
         'nr_tel_resp',
         'nr_cpf',
@@ -37,6 +38,11 @@ class Espacos extends Model
         'tx_email_comercial_resp',
         'tx_desc_ativ_resp'
     ];
+
+    public function endereco(): BelongsTo
+    {
+        return $this->belongsTo(Endereco::class, 'id_endereco', 'id_endereco');
+    }
 
     public function espacosTabela(): HasMany
     {

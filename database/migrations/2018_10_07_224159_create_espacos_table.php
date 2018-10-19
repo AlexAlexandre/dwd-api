@@ -15,6 +15,7 @@ class CreateEspacosTable extends Migration
     {
         Schema::create('tb_espacos', function (Blueprint $table) {
             $table->increments('id_espacos')->unsigned();
+            $table->integer('id_endereco')->unsigned()->nullable();
 
             // Abas dados do empreendimento
             $table->string('tx_razao_social', 45)->nullable();
@@ -37,7 +38,6 @@ class CreateEspacosTable extends Migration
             $table->string('tx_nome_administradora', 45)->nullable();
             $table->string('tx_contato_administradora', 45)->nullable();
             $table->string('nr_unidade', 45)->nullable();
-            $table->string('tx_endereco', 45)->nullable();
 
             // Abas dados do Responsável
             $table->string('tx_nome_completo', 45)->nullable();

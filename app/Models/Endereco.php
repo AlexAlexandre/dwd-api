@@ -31,4 +31,9 @@ class Endereco extends Model
     {
         return $this->hasMany(Fornecedores::class, 'id_endereco', 'id_endereco');
     }
+
+    public function espacos(): HasMany
+    {
+        return $this->hasMany(Espacos::class, 'id_endereco', 'id_endereco');
+    }
 }

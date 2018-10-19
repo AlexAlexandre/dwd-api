@@ -7,6 +7,7 @@
 
 namespace App\Services;
 
+use App\Models\Endereco;
 use App\Models\Espacos;
 use App\Models\EspacosSalas;
 use App\Models\EspacosTabelaPreco;
@@ -43,11 +44,10 @@ class EspacosService
      */
     public function create(Request $request)
     {
-        //TODO criar os repositories e tirar isso daqui.
-
         try {
 
             DB::beginTransaction();
+            $endereco = Endereco::create($request->input('enderecoCompleto'));
 
             $espaco = Espacos::create($request->input('espaco'));
 
@@ -58,6 +58,8 @@ class EspacosService
                     'id_salas' => $sala->id_salas
                 ]);
             }
+
+            $espaco->update(['id_endereco' => $endereco->id_endereco]);
 
             DB::commit();
 
@@ -75,12 +77,18 @@ class EspacosService
     //TODO - colocar o rollback
     public function update(Request $request, $id)
     {
+
+        if (is_array($request->input('enderecoCompleto'))) {
+            Endereco::find($request->input('enderecoCompleto.id_endereco'))
+                ->update($request->input('enderecoCompleto'));
+        }
+
         $espaco = Espacos::find($id)
             ->update($request->input('espaco'));
 
         if ($request->input('espaco.sala.tx_nome_salas') != null) {
 
-            if($request->input('espaco.sala.id_salas')) {
+            if ($request->input('espaco.sala.id_salas')) {
 
                 Salas::find($request->input('espaco.sala.id_salas'))
                     ->update($request->input('espaco.sala'));
@@ -95,7 +103,7 @@ class EspacosService
             }
         }
 
-        if($request->input('tabelaPreco')){
+        if (is_array($request->input('tabelaPreco'))) {
             foreach ($request->input('tabelaPreco') as $tb) {
                 EspacosTabelaPreco::create([
                     'id_tabela_preco' => $tb['id_tabela_preco'],
