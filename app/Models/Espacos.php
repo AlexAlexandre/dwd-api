@@ -25,7 +25,6 @@ class Espacos extends Model
         'tx_nome_espaco',
         'tx_nome_condominio',
         'qtd_vagas_condominio',
-        'tx_regras_condominio',
         'tx_contato_condominio',
         'hr_inicio_funcionamento',
         'hr_fim_funcionamento',
@@ -37,7 +36,11 @@ class Espacos extends Model
         'nr_cpf',
         'tx_cargo',
         'tx_email_comercial_resp',
-        'tx_desc_ativ_resp'
+        'tx_desc_ativ_resp',
+        'regras_condominio',
+        'seguro',
+        'iptu',
+        'licenca_funcionamento'
     ];
 
     public function endereco(): BelongsTo

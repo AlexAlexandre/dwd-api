@@ -18,6 +18,7 @@ class CreateSalasTable extends Migration
             $table->string('tx_nome_salas',45);
             $table->decimal('nr_metragem_salas', 8,2);
             $table->decimal('nr_altura_pe_direito_salas', 8,2);
+            $table->string('tx_img_sala', 100)->nullable();
             $table->timestamps();
         });
     }

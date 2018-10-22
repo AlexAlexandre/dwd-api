@@ -32,7 +32,6 @@ class CreateEspacosTable extends Migration
             $table->string('tx_nome_espaco', 45)->nullable();
             $table->string('tx_nome_condominio', 45)->nullable();
             $table->integer('qtd_vagas_condominio')->nullable();
-            $table->text('tx_regras_condominio')->nullable();
             $table->string('tx_contato_condominio', 45)->nullable();
             $table->string('hr_inicio_funcionamento')->nullable();
             $table->string('hr_fim_funcionamento')->nullable();
@@ -47,6 +46,12 @@ class CreateEspacosTable extends Migration
             $table->string('tx_cargo', 45)->nullable();
             $table->string('tx_email_comercial_resp', 45)->nullable();
             $table->string('tx_desc_ativ_resp', 200)->nullable();
+
+            //Documentos
+            $table->string('regras_condominio')->nullable();
+            $table->string('seguro')->nullable();
+            $table->string('iptu')->nullable();
+            $table->string('licenca_funcionamento')->nullable();
 
             $table->timestamps();
         });

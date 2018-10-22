@@ -31,3 +31,4 @@ Route::get('salas/{id}', 'EspacosController@listarSala');
 Route::delete('salas/{idSala}/{idEspaco}', 'EspacosController@destroyEspacoSala');
 Route::delete('espacos/tabela-preco/{tb}/{espaco}', 'EspacosController@destroyEspacoTabela');
 Route::delete('tabela-preco/produto/{id}', 'TabelaPrecoController@destroyProduto');
+Route::post('espacos/documentos/{id}', 'EspacosController@salvarDocumentos');

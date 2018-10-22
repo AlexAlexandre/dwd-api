@@ -45,13 +45,16 @@ class EspacosService
     public function create(Request $request)
     {
         try {
-
             DB::beginTransaction();
-            $endereco = Endereco::create($request->input('enderecoCompleto'));
+
+            if (is_array($request->input('enderecoCompleto'))) {
+                $endereco = Endereco::create($request->input('enderecoCompleto'));
+            }
 
             $espaco = Espacos::create($request->input('espaco'));
 
             if ($request->input('espaco.sala')) {
+
                 $sala = Salas::create($request->input('espaco.sala'));
                 EspacosSalas::create([
                     'id_espacos' => $espaco->id_espacos,
@@ -59,7 +62,9 @@ class EspacosService
                 ]);
             }
 
-            $espaco->update(['id_endereco' => $endereco->id_endereco]);
+            if (is_array($request->input('enderecoCompleto'))) {
+                $espaco->update(['id_endereco' => $endereco->id_endereco]);
+            }
 
             DB::commit();
 
@@ -77,25 +82,36 @@ class EspacosService
     //TODO - colocar o rollback
     public function update(Request $request, $id)
     {
-
         if (is_array($request->input('enderecoCompleto'))) {
-            Endereco::find($request->input('enderecoCompleto.id_endereco'))
-                ->update($request->input('enderecoCompleto'));
+            if ($request->input('enderecoCompleto.id_endereco') != 'null') {
+                Endereco::find($request->input('enderecoCompleto.id_endereco'))
+                    ->update($request->input('enderecoCompleto'));
+            } else {
+                Endereco::create($request->input('enderecoCompleto'));
+            }
         }
 
-        $espaco = Espacos::find($id)
-            ->update($request->input('espaco'));
+        $espaco = Espacos::find($id)->update($request->input('espaco'));
 
-        if ($request->input('espaco.sala.tx_nome_salas') != null) {
+        if ($request->input('espaco.sala.tx_nome_salas') != 'null') {
 
-            if ($request->input('espaco.sala.id_salas')) {
+            if ($request->input('espaco.sala.id_salas') != 'null') {
 
-                Salas::find($request->input('espaco.sala.id_salas'))
-                    ->update($request->input('espaco.sala'));
+                Salas::find($request->input('espaco.sala.id_salas'))->update($request->input('espaco.sala'));
 
             } else {
 
+                //Salvando a imagem
+                $request->file('espaco.sala.foto')->storeAs('/public/img/espaco/sala',
+                    $request->file('espaco.sala.foto')->getClientOriginalName());
+
                 $sala = Salas::create($request->input('espaco.sala'));
+
+                $sala->update([
+                    'tx_img_sala' => 'public/img/espaco/sala/' . $request->file('espaco.sala.foto')
+                            ->getClientOriginalName()
+                ]);
+
                 EspacosSalas::create([
                     'id_espacos' => $id,
                     'id_salas' => $sala->id_salas
@@ -138,5 +154,23 @@ class EspacosService
     {
         $espacoTb = EspacosTabelaPreco::where(['id_tabela_preco' => $idTb, 'id_espacos' => $idEspaco])->delete();
         return $this->sendResponse($espacoTb, __('responses.success.destroy'));
+    }
+
+    public function salvarDocumentos($request, $id)
+    {
+
+        foreach ($request->file('documentos') as $key => $value) {
+            $value->storeAs('/public/documentos/espacos/',
+                $value->getClientOriginalName());
+
+            $espaco = Espacos::find($id)->update([
+                $key => 'documentos/espacos/'.$value->getClientOriginalName()
+            ]);
+        }
+
+        return $this->sendResponse(
+            $espaco, __('responses.success.create'),
+            \Illuminate\Http\Response::HTTP_CREATED
+        );
     }
 }

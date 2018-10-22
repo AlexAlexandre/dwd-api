@@ -41,7 +41,8 @@ class EspacosController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -63,7 +64,8 @@ class EspacosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -74,7 +76,8 @@ class EspacosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Fornecedores  $id
+     * @param  \App\Models\Fornecedores $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -106,5 +109,11 @@ class EspacosController extends Controller
     public function destroyEspacoTabela($idTb, $idEspaco)
     {
         return $this->espacosService->destroyEspacoTabela($idTb, $idEspaco);
+    }
+
+    public function salvarDocumentos(Request $request, $id)
+    {
+//        return $request->file();
+        return $this->espacosService->salvarDocumentos($request, $id);
     }
 }
